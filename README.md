@@ -71,7 +71,7 @@ The `createUnauthenticatedAuth` method requires an `options.reason` argument whi
 Examples
 
 ```js
-createTokenAuth({
+createUnauthenticatedAuth({
   reason:
     "Handling an installation.deleted event: The app's access has been revoked from @octokit (id: 12345)",
 });
