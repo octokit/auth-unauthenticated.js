@@ -1,5 +1,3 @@
-# 🚧 Work in Progress ([#1](https://github.com/octokit/auth-unauthenticated.js/pull/1))
-
 # auth-unauthenticated.js
 
 > strategy for explicitly unauthenticated Octokit instances
