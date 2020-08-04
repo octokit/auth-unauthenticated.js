@@ -1,0 +1,85 @@
+{
+  "name": "@octokit/auth-unauthenticated",
+  "publishConfig": {
+    "access": "public"
+  },
+  "version": "0.0.0-development",
+  "description": "GitHub API token authentication for browsers and Node.js",
+  "scripts": {
+    "build": "pika build",
+    "lint": "prettier --check 'src/**/*.ts' 'test/**/*.ts' '*.md' package.json",
+    "lint:fix": "prettier --write 'src/**/*.ts' 'test/**/*.ts' '*.md' package.json",
+    "test": "jest --coverage"
+  },
+  "repository": "https://github.com/octokit/auth-unauthenticated.js",
+  "keywords": [
+    "github",
+    "octokit",
+    "authentication",
+    "api"
+  ],
+  "author": "Gregor Martynus (https://github.com/gr2m)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/octokit/auth-unauthenticated.js/issues"
+  },
+  "homepage": "https://github.com/octokit/auth-unauthenticated.js#readme",
+  "dependencies": {
+    "@octokit/request-error": "^2.0.2",
+    "@octokit/types": "^5.0.0",
+    "prettier": "^2.0.5"
+  },
+  "devDependencies": {
+    "@octokit/core": "^2.2.0",
+    "@octokit/request": "^5.3.0",
+    "@pika/pack": "^0.5.0",
+    "@pika/plugin-build-node": "^0.9.0",
+    "@pika/plugin-build-web": "^0.9.0",
+    "@pika/plugin-ts-standard-pkg": "^0.9.0",
+    "@tsconfig/node10": "^1.0.3",
+    "@types/fetch-mock": "^7.3.1",
+    "@types/jest": "^26.0.0",
+    "fetch-mock": "^9.0.0",
+    "jest": "^25.1.0",
+    "semantic-release": "^17.0.0",
+    "ts-jest": "^25.1.0",
+    "typescript": "^3.7.2"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "coverageThreshold": {
+      "global": {
+        "statements": 100,
+        "branches": 100,
+        "functions": 100,
+        "lines": 100
+      }
+    }
+  },
+  "release": {
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/github",
+      [
+        "@semantic-release/npm",
+        {
+          "pkgRoot": "./pkg"
+        }
+      ]
+    ]
+  },
+  "@pika/pack": {
+    "pipeline": [
+      [
+        "@pika/plugin-ts-standard-pkg"
+      ],
+      [
+        "@pika/plugin-build-node"
+      ],
+      [
+        "@pika/plugin-build-web"
+      ]
+    ]
+  }
+}
