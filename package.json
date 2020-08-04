@@ -20,10 +20,6 @@
   ],
   "author": "Gregor Martynus (https://github.com/gr2m)",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/octokit/auth-unauthenticated.js/issues"
-  },
-  "homepage": "https://github.com/octokit/auth-unauthenticated.js#readme",
   "dependencies": {
     "@octokit/request-error": "^2.0.2",
     "@octokit/types": "^5.0.0",
