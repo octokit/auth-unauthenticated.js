@@ -26,7 +26,7 @@ export async function hook(
 
   if (MUTATING_METHODS.includes(endpoint.method)) {
     throw new RequestError(
-      `"${endpoint.method} ${endpoint.url}" is not permitted due to lack authentication. Reason: ${reason}`,
+      `"${endpoint.method} ${endpoint.url}" is not permitted due to lack of authentication. Reason: ${reason}`,
       403,
       {
         request: request.endpoint.parse(endpoint),

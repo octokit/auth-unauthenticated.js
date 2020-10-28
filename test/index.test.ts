@@ -192,7 +192,7 @@ test('auth.hook(request, "PATCH /repos/octocat/hello-world") fails without sendi
     throw new Error("should not resolve");
   } catch (error) {
     expect(error.message).toBe(
-      '"PATCH /repos/octocat/hello-world" is not permitted due to lack authentication. Reason: test'
+      '"PATCH /repos/octocat/hello-world" is not permitted due to lack of authentication. Reason: test'
     );
   }
 });
