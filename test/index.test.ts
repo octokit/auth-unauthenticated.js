@@ -175,13 +175,15 @@ test('auth.hook(request, "GET /repos/octocat/hello-world") returns rate limit re
   }
 });
 
-test('auth.hook(request, "PATCH /repos/octocat/hello-world") fails without sending request', async () => {
+test('auth.hook(request, "PATCH /repos/octocat/hello-world") with 401 response', async () => {
   const requestMock = request.defaults({
     headers: {
       "user-agent": "test",
     },
     request: {
-      fetch: fetchMock.sandbox(),
+      fetch: fetchMock
+        .sandbox()
+        .patchOnce("path:/repos/octocat/hello-world", 401),
     },
   });
 
@@ -192,7 +194,7 @@ test('auth.hook(request, "PATCH /repos/octocat/hello-world") fails without sendi
     throw new Error("should not resolve");
   } catch (error) {
     expect(error.message).toBe(
-      '"PATCH /repos/octocat/hello-world" is not permitted due to lack of authentication. Reason: test'
+      'Unauthorized. "PATCH /repos/octocat/hello-world" failed most likely due to lack of authentication. Reason: test'
     );
   }
 });
@@ -216,5 +218,64 @@ test('auth.hook(request, "GET /repos/octocat/hello-world") does not swallow non-
     throw new Error("should not resolve");
   } catch (error) {
     expect(error.message).toBe("unrelated");
+  }
+});
+
+test('auth.hook(request, "POST /repos/octocat/hello-world/issues/123/comments") with 403 response', async () => {
+  const requestMock = request.defaults({
+    headers: {
+      "user-agent": "test",
+    },
+    request: {
+      fetch: fetchMock
+        .sandbox()
+        .postOnce("path:/repos/octocat/hello-world/issues/123/comments", {
+          status: 403,
+          body: {
+            message: "You cannot comment on locked issues",
+          },
+        }),
+    },
+  });
+
+  const { hook } = createUnauthenticatedAuth({ reason: "test" });
+
+  try {
+    await hook(
+      requestMock,
+      "POST /repos/octocat/hello-world/issues/123/comments"
+    );
+
+    throw new Error("should not resolve");
+  } catch (error) {
+    expect(error.message).toBe(
+      "You cannot comment on locked issues. May be caused by lack of authentication (test)."
+    );
+  }
+});
+
+test('500 response', async () => {
+  const requestMock = request.defaults({
+    headers: {
+      "user-agent": "test",
+    },
+    request: {
+      fetch: fetchMock
+        .sandbox()
+        .getOnce("path:/", 500),
+    },
+  });
+
+  const { hook } = createUnauthenticatedAuth({ reason: "test" });
+
+  try {
+    await hook(
+      requestMock,
+      "GET /"
+    );
+
+    throw new Error("should not resolve");
+  } catch (error) {
+    expect(error.message).toBe("");
   }
 });
