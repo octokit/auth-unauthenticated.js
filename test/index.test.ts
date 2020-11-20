@@ -254,25 +254,20 @@ test('auth.hook(request, "POST /repos/octocat/hello-world/issues/123/comments") 
   }
 });
 
-test('500 response', async () => {
+test("500 response", async () => {
   const requestMock = request.defaults({
     headers: {
       "user-agent": "test",
     },
     request: {
-      fetch: fetchMock
-        .sandbox()
-        .getOnce("path:/", 500),
+      fetch: fetchMock.sandbox().getOnce("path:/", 500),
     },
   });
 
   const { hook } = createUnauthenticatedAuth({ reason: "test" });
 
   try {
-    await hook(
-      requestMock,
-      "GET /"
-    );
+    await hook(requestMock, "GET /");
 
     throw new Error("should not resolve");
   } catch (error) {
