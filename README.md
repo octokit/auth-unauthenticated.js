@@ -7,7 +7,7 @@
 
 `@octokit/auth-unauthenticated` is useful for cases when an Octokit constructor has a default authentication strategy, but you require an explicitly unauthenticated instance.
 
-One use cases is when building a GitHub App using [`@octokit/auth-app`](https://github.com/octokit/auth-app.js) and handling webhooks using [`@octokit/webhooks](https://github.com/octokit/webhooks.js). While all webhook events provide an installation ID in its payload, in case of the `installation.deleted` event, the app can no longer create an installation access token, because the app's access has been revoked.
+One use cases is when building a GitHub App using [`@octokit/auth-app`](https://github.com/octokit/auth-app.js) and handling webhooks using [`@octokit/webhooks`](https://github.com/octokit/webhooks.js). While all webhook events provide an installation ID in its payload, in case of the `installation.deleted` event, the app can no longer create an installation access token, because the app's access has been revoked.
 
 <!-- toc -->
 
