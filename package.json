@@ -34,7 +34,7 @@
     "@tsconfig/node10": "^1.0.3",
     "@types/jest": "^26.0.0",
     "fetch-mock": "^9.10.7",
-    "jest": "^26.0.0",
+    "jest": "^27.0.0",
     "prettier": "^2.0.5",
     "semantic-release": "^17.0.0",
     "ts-jest": "^26.0.0",
