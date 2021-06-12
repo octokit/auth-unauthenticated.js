@@ -6,9 +6,9 @@ export function isRateLimitError(error: RequestError) {
   }
 
   /* istanbul ignore if */
-  if (!error.headers) {
+  if (!error.response) {
     return false;
   }
 
-  return error.headers["x-ratelimit-remaining"] === "0";
+  return error.response.headers["x-ratelimit-remaining"] === "0";
 }
