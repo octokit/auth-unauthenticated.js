@@ -9,6 +9,7 @@
     "build": "pika-pack build",
     "lint": "prettier --check 'src/**/*.ts' 'test/**/*.ts' '*.md' package.json",
     "lint:fix": "prettier --write 'src/**/*.ts' 'test/**/*.ts' '*.md' package.json",
+    "pretest": "npm run lint -s",
     "test": "jest --coverage"
   },
   "repository": "github:octokit/auth-unauthenticated.js",
