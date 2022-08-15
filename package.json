@@ -23,7 +23,7 @@
   "license": "MIT",
   "dependencies": {
     "@octokit/request-error": "^3.0.0",
-    "@octokit/types": "^6.0.3"
+    "@octokit/types": "^7.0.0"
   },
   "devDependencies": {
     "@octokit/core": "^4.0.0",
