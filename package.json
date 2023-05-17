@@ -28,6 +28,7 @@
   "devDependencies": {
     "@octokit/core": "^4.0.0",
     "@octokit/request": "^6.0.0",
+    "@octokit/tsconfig": "^1.0.2",
     "@tsconfig/node10": "^1.0.3",
     "@types/jest": "^29.0.0",
     "fetch-mock": "^9.10.7",
