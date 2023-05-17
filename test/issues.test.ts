@@ -1,5 +1,5 @@
 import { request } from "@octokit/request";
-import fetchMock, { MockMatcherFunction } from "fetch-mock";
+import fetchMock from "fetch-mock";
 
 import { createUnauthenticatedAuth } from "../src/index";
 
