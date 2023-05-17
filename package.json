@@ -6,7 +6,7 @@
   "version": "0.0.0-development",
   "description": "GitHub API token authentication for browsers and Node.js",
   "scripts": {
-    "build": "pika-pack build",
+    "build": "node scripts/build.mjs && tsc -p tsconfig.json",
     "lint": "prettier --check 'src/**/*.ts' 'test/**/*.ts' '*.md' package.json",
     "lint:fix": "prettier --write 'src/**/*.ts' 'test/**/*.ts' '*.md' package.json",
     "pretest": "npm run lint -s",
