@@ -6,7 +6,7 @@
   "version": "0.0.0-development",
   "description": "GitHub API token authentication for browsers and Node.js",
   "scripts": {
-    "build": "pika-pack build",
+    "build": "node scripts/build.mjs && tsc -p tsconfig.json",
     "lint": "prettier --check 'src/**/*.ts' 'test/**/*.ts' '*.md' package.json",
     "lint:fix": "prettier --write 'src/**/*.ts' 'test/**/*.ts' '*.md' package.json",
     "pretest": "npm run lint -s",
@@ -28,13 +28,12 @@
   "devDependencies": {
     "@octokit/core": "^4.0.0",
     "@octokit/request": "^6.0.0",
-    "@pika/pack": "^0.3.7",
-    "@pika/plugin-build-node": "^0.9.0",
-    "@pika/plugin-build-web": "^0.9.0",
-    "@pika/plugin-ts-standard-pkg": "^0.9.0",
+    "@octokit/tsconfig": "^1.0.2",
     "@tsconfig/node10": "^1.0.3",
     "@types/jest": "^29.0.0",
+    "esbuild": "^0.17.19",
     "fetch-mock": "^9.10.7",
+    "glob": "^10.2.5",
     "jest": "^29.0.0",
     "prettier": "2.8.8",
     "ts-jest": "^29.0.0",
@@ -76,22 +75,6 @@
         "name": "alpha",
         "prerelease": true
       }
-    ]
-  },
-  "@pika/pack": {
-    "pipeline": [
-      [
-        "@pika/plugin-ts-standard-pkg"
-      ],
-      [
-        "@pika/plugin-build-node",
-        {
-          "minNodeVersion": "14"
-        }
-      ],
-      [
-        "@pika/plugin-build-web"
-      ]
     ]
   },
   "engines": {

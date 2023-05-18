@@ -35,7 +35,7 @@ test('auth.hook(request, "GET /repos/octocat/hello-world")', async () => {
     "user-agent": "test",
   };
 
-  const matchGetUser: MockMatcherFunction = (url, { body, headers }) => {
+  const matchGetUser: MockMatcherFunction = (url, { headers }) => {
     expect(url).toEqual("https://api.github.com/repos/octocat/hello-world");
     expect(headers).toStrictEqual(expectedRequestHeaders);
     return true;
@@ -62,7 +62,7 @@ test('auth.hook(request, "GET /repos/octocat/hello-world") returns 404', async (
     "user-agent": "test",
   };
 
-  const matchGetUser: MockMatcherFunction = (url, { body, headers }) => {
+  const matchGetUser: MockMatcherFunction = (url, { headers }) => {
     expect(url).toEqual("https://api.github.com/repos/octocat/hello-world");
     expect(headers).toStrictEqual(expectedRequestHeaders);
     return true;
@@ -100,7 +100,7 @@ test('auth.hook(request, "GET /repos/octocat/hello-world") returns rate limit re
     "user-agent": "test",
   };
 
-  const matchGetUser: MockMatcherFunction = (url, { body, headers }) => {
+  const matchGetUser: MockMatcherFunction = (url, { headers }) => {
     expect(url).toEqual("https://api.github.com/repos/octocat/hello-world");
     expect(headers).toStrictEqual(expectedRequestHeaders);
     return true;
@@ -142,7 +142,7 @@ test('auth.hook(request, "GET /repos/octocat/hello-world") returns rate limit re
     "user-agent": "test",
   };
 
-  const matchGetUser: MockMatcherFunction = (url, { body, headers }) => {
+  const matchGetUser: MockMatcherFunction = (url, { headers }) => {
     expect(url).toEqual("https://api.github.com/repos/octocat/hello-world");
     expect(headers).toStrictEqual(expectedRequestHeaders);
     return true;
