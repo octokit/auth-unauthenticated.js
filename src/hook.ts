@@ -1,5 +1,3 @@
-import { RequestError } from "@octokit/request-error";
-
 import {
   AnyResponse,
   EndpointDefaults,
