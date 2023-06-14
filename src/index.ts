@@ -1,6 +1,6 @@
 import { auth } from "./auth";
 import { hook } from "./hook";
-import { StrategyInterface, Options, Authentication } from "./types";
+import type { StrategyInterface, Options, Authentication } from "./types";
 
 export type Types = {
   StrategyOptions: Options;
