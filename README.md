@@ -28,11 +28,11 @@ One use cases is when building a GitHub App using [`@octokit/auth-app`](https://
 Browsers
 </th><td width=100%>
 
-Load `@octokit/auth-unauthenticated` directly from [cdn.pika.dev](https://cdn.pika.dev)
+Load `@octokit/auth-unauthenticated` directly from [esm.sh](https://esm.sh)
 
 ```html
 <script type="module">
-  import { createUnauthenticatedAuth } from "https://cdn.pika.dev/@octokit/auth-unauthenticated";
+  import { createUnauthenticatedAuth } from "https://esm.sh/@octokit/auth-unauthenticated";
 </script>
 ```
 
