@@ -24,7 +24,7 @@ test("https://github.com/octokit/auth-unauthenticated.js/issues/29", async () =>
     "POST /app-manifests/{code}/conversions",
     {
       code: 123,
-    }
+    },
   );
 
   expect(data).toStrictEqual({ id: 1 });
