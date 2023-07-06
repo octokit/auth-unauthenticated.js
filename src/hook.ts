@@ -13,11 +13,11 @@ export async function hook(
   reason: string,
   request: RequestInterface,
   route: Route | EndpointOptions,
-  parameters?: RequestParameters
+  parameters?: RequestParameters,
 ): Promise<AnyResponse> {
   const endpoint: EndpointDefaults = request.endpoint.merge(
     route as string,
-    parameters
+    parameters,
   );
 
   return request(endpoint as EndpointOptions).catch((error) => {
@@ -44,7 +44,7 @@ export async function hook(
     if (error.status >= 400 && error.status < 500) {
       error.message = error.message.replace(
         /\.?$/,
-        `. May be caused by lack of authentication (${reason}).`
+        `. May be caused by lack of authentication (${reason}).`,
       );
     }
 

@@ -12,7 +12,7 @@ export const createUnauthenticatedAuth: StrategyInterface =
   function createUnauthenticatedAuth(options: Options) {
     if (!options || !options.reason) {
       throw new Error(
-        "[@octokit/auth-unauthenticated] No reason passed to createUnauthenticatedAuth"
+        "[@octokit/auth-unauthenticated] No reason passed to createUnauthenticatedAuth",
       );
     }
 

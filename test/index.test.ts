@@ -24,7 +24,7 @@ test("no reason", async () => {
     throw new Error("Should not resolve");
   } catch (error: any) {
     expect(error.message).toMatch(
-      /No reason passed to createUnauthenticatedAuth/i
+      /No reason passed to createUnauthenticatedAuth/i,
     );
   }
 });
@@ -89,7 +89,7 @@ test('auth.hook(request, "GET /repos/octocat/hello-world") returns 404', async (
     throw new Error("should not resolve");
   } catch (error: any) {
     expect(error.message).toBe(
-      "Not found. May be due to lack of authentication. Reason: test"
+      "Not found. May be due to lack of authentication. Reason: test",
     );
   }
 });
@@ -131,7 +131,7 @@ test('auth.hook(request, "GET /repos/octocat/hello-world") returns rate limit re
     throw new Error("should not resolve");
   } catch (error: any) {
     expect(error.message).toBe(
-      "API rate limit exceeded. This maybe caused by the lack of authentication. Reason: test"
+      "API rate limit exceeded. This maybe caused by the lack of authentication. Reason: test",
     );
   }
 });
@@ -170,7 +170,7 @@ test('auth.hook(request, "GET /repos/octocat/hello-world") returns rate limit re
     throw new Error("should not resolve");
   } catch (error: any) {
     expect(error.message).toBe(
-      "You have triggered an abuse detection mechanism. This maybe caused by the lack of authentication. Reason: test"
+      "You have triggered an abuse detection mechanism. This maybe caused by the lack of authentication. Reason: test",
     );
   }
 });
@@ -194,7 +194,7 @@ test('auth.hook(request, "PATCH /repos/octocat/hello-world") with 401 response',
     throw new Error("should not resolve");
   } catch (error: any) {
     expect(error.message).toBe(
-      'Unauthorized. "PATCH /repos/octocat/hello-world" failed most likely due to lack of authentication. Reason: test'
+      'Unauthorized. "PATCH /repos/octocat/hello-world" failed most likely due to lack of authentication. Reason: test',
     );
   }
 });
@@ -243,13 +243,13 @@ test('auth.hook(request, "POST /repos/octocat/hello-world/issues/123/comments") 
   try {
     await hook(
       requestMock,
-      "POST /repos/octocat/hello-world/issues/123/comments"
+      "POST /repos/octocat/hello-world/issues/123/comments",
     );
 
     throw new Error("should not resolve");
   } catch (error: any) {
     expect(error.message).toBe(
-      "You cannot comment on locked issues. May be caused by lack of authentication (test)."
+      "You cannot comment on locked issues. May be caused by lack of authentication (test).",
     );
   }
 });
