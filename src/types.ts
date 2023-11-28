@@ -1,11 +1,6 @@
 import type {
   OctokitResponse,
   StrategyInterface as OctokitStrategyInterface,
-  EndpointDefaults,
-  EndpointOptions,
-  RequestParameters,
-  RequestInterface,
-  Route,
 } from "@octokit/types";
 
 export type AnyResponse = OctokitResponse<any>;
@@ -21,7 +16,7 @@ export type {
   RequestParameters,
   RequestInterface,
   Route,
-};
+} from "@octokit/types";
 
 export type Options = {
   reason: string;
