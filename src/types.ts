@@ -1,17 +1,27 @@
-import * as OctokitTypes from "@octokit/types";
+import type {
+  OctokitResponse,
+  StrategyInterface as OctokitStrategyInterface,
+  EndpointDefaults,
+  EndpointOptions,
+  RequestParameters,
+  RequestInterface,
+  Route,
+} from "@octokit/types";
 
-export type AnyResponse = OctokitTypes.OctokitResponse<any>;
-export type StrategyInterface = OctokitTypes.StrategyInterface<
+export type AnyResponse = OctokitResponse<any>;
+export type StrategyInterface = OctokitStrategyInterface<
   [Options],
   [],
   Authentication
 >;
 
-export type EndpointDefaults = OctokitTypes.EndpointDefaults;
-export type EndpointOptions = OctokitTypes.EndpointOptions;
-export type RequestParameters = OctokitTypes.RequestParameters;
-export type RequestInterface = OctokitTypes.RequestInterface;
-export type Route = OctokitTypes.Route;
+export type {
+  EndpointDefaults,
+  EndpointOptions,
+  RequestParameters,
+  RequestInterface,
+  Route,
+};
 
 export type Options = {
   reason: string;
