@@ -1,4 +1,4 @@
-import type { Authentication } from "./types";
+import type { Authentication } from "./types.js";
 
 export async function auth(reason: string): Promise<Authentication> {
   return {
