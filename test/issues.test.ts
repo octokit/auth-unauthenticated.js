@@ -1,7 +1,7 @@
 import { request } from "@octokit/request";
 import fetchMock from "fetch-mock";
 
-import { createUnauthenticatedAuth } from "../src/index";
+import { createUnauthenticatedAuth } from "../src/index.ts";
 
 test("https://github.com/octokit/auth-unauthenticated.js/issues/29", async () => {
   const requestMock = request.defaults({

@@ -5,9 +5,9 @@ import type {
   RequestInterface,
   RequestParameters,
   Route,
-} from "./types";
-import { isRateLimitError } from "./is-rate-limit-error";
-import { isAbuseLimitError } from "./is-abuse-limit-error";
+} from "./types.js";
+import { isRateLimitError } from "./is-rate-limit-error.js";
+import { isAbuseLimitError } from "./is-abuse-limit-error.js";
 
 export async function hook(
   reason: string,

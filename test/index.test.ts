@@ -1,7 +1,7 @@
 import { request } from "@octokit/request";
-import fetchMock, { MockMatcherFunction } from "fetch-mock";
+import fetchMock, { type MockMatcherFunction } from "fetch-mock";
 
-import { createUnauthenticatedAuth } from "../src/index";
+import { createUnauthenticatedAuth } from "../src/index.ts";
 
 test("README example", async () => {
   const auth = createUnauthenticatedAuth({
