@@ -53,7 +53,7 @@ test('auth.hook(request, "GET /repos/octocat/hello-world")', async () => {
   const { hook } = createUnauthenticatedAuth({ reason: "test" });
   const { data } = await hook(requestMock, "GET /repos/octocat/hello-world");
 
-  expect(data).toStrictEqual({ id: 123 });
+  expect({ ...data }).toStrictEqual({ id: 123 });
 });
 
 test('auth.hook(request, "GET /repos/octocat/hello-world") returns 404', async () => {
