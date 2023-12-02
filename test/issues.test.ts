@@ -27,5 +27,5 @@ test("https://github.com/octokit/auth-unauthenticated.js/issues/29", async () =>
     },
   );
 
-  expect(data).toStrictEqual({ id: 1 });
+  expect({ ...data }).toStrictEqual({ id: 1 });
 });
