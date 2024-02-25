@@ -44,8 +44,7 @@ Node
 Install with <code>npm install @octokit/auth-unauthenticated</code>
 
 ```js
-const { createUnauthenticatedAuth } = require("@octokit/auth-unauthenticated");
-// or: import { createUnauthenticatedAuth } from "@octokit/auth-unauthenticated";
+import { createUnauthenticatedAuth } from "@octokit/auth-unauthenticated";
 ```
 
 </td></tr>
