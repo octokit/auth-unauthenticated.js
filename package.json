@@ -3,6 +3,7 @@
   "publishConfig": {
     "access": "public"
   },
+  "type": "module",
   "version": "0.0.0-development",
   "description": "GitHub API token authentication for browsers and Node.js",
   "scripts": {
@@ -10,7 +11,7 @@
     "lint": "prettier --check 'src/**/*.ts' 'test/**/*.ts' '*.md' package.json",
     "lint:fix": "prettier --write 'src/**/*.ts' 'test/**/*.ts' '*.md' package.json",
     "pretest": "npm run lint -s",
-    "test": "jest --coverage"
+    "test": "NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" npx jest --coverage"
   },
   "repository": "github:octokit/auth-unauthenticated.js",
   "keywords": [
@@ -22,13 +23,13 @@
   "author": "Gregor Martynus (https://github.com/gr2m)",
   "license": "MIT",
   "dependencies": {
-    "@octokit/request-error": "^5.0.0",
+    "@octokit/request-error": "^6.0.1",
     "@octokit/types": "^12.0.0"
   },
   "devDependencies": {
-    "@octokit/core": "^5.0.0",
-    "@octokit/request": "^8.0.2",
-    "@octokit/tsconfig": "^2.0.0",
+    "@octokit/core": "^6.0.0",
+    "@octokit/request": "^9.0.0",
+    "@octokit/tsconfig": "^3.0.0",
     "@types/jest": "^29.0.0",
     "esbuild": "^0.20.0",
     "fetch-mock": "npm:@gr2m/fetch-mock@^9.11.0-pull-request-644.1",
@@ -39,11 +40,15 @@
     "typescript": "^5.0.0"
   },
   "jest": {
+    "extensionsToTreatAsEsm": [
+      ".ts"
+    ],
     "transform": {
       "^.+\\.(ts|tsx)$": [
         "ts-jest",
         {
-          "tsconfig": "test/tsconfig.test.json"
+          "tsconfig": "test/tsconfig.test.json",
+          "useESM": true
         }
       ]
     },

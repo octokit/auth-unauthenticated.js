@@ -12,6 +12,7 @@ const sharedOptions = {
   minify: false,
   allowOverwrite: true,
   packages: "external",
+  format: "esm",
 };
 
 async function main() {
@@ -23,7 +24,6 @@ async function main() {
     outdir: "pkg/dist-src",
     bundle: false,
     platform: "neutral",
-    format: "esm",
     ...sharedOptions,
     sourcemap: false,
   });
@@ -46,8 +46,7 @@ async function main() {
       outdir: "pkg/dist-node",
       bundle: true,
       platform: "node",
-      target: "node14",
-      format: "cjs",
+      target: "node18",
       ...sharedOptions,
     }),
     // Build an ESM browser bundle
@@ -56,7 +55,6 @@ async function main() {
       outdir: "pkg/dist-web",
       bundle: true,
       platform: "browser",
-      format: "esm",
       ...sharedOptions,
     }),
   ]);
@@ -78,10 +76,22 @@ async function main() {
       {
         ...pkg,
         files: ["dist-*/**", "bin/**"],
-        main: "dist-node/index.js",
-        module: "dist-web/index.js",
-        types: "dist-types/index.d.ts",
-        source: "dist-src/index.js",
+        exports: {
+          ".": {
+            node: {
+              types: "./dist-types/index.d.ts",
+              import: "./dist-node/index.js",
+            },
+            browser: {
+              types: "./dist-types/web.d.ts",
+              import: "./dist-web/index.js",
+            },
+            default: {
+              types: "./dist-types/index.d.ts",
+              import: "./dist-node/index.js",
+            },
+          },
+        },
         sideEffects: false,
       },
       null,
