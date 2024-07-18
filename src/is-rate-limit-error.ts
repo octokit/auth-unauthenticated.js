@@ -5,7 +5,7 @@ export function isRateLimitError(error: RequestError) {
     return false;
   }
 
-  /* istanbul ignore if */
+  /* v8 ignore next 3 */
   if (!error.response) {
     return false;
   }

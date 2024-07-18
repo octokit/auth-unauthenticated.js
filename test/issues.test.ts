@@ -1,3 +1,4 @@
+import { test, expect } from "vitest";
 import { request } from "@octokit/request";
 import fetchMock from "fetch-mock";
 
