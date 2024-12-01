@@ -36,18 +36,32 @@ test('auth.hook(request, "GET /repos/octocat/hello-world")', async () => {
     "user-agent": "test",
   };
 
-  const matchGetUser: fetchMock.MockMatcherFunction = (url, { headers }) => {
-    expect(url).toEqual("https://api.github.com/repos/octocat/hello-world");
-    expect(headers).toStrictEqual(expectedRequestHeaders);
+  const matchGetUser: fetchMock.MockMatcherFunction = (request) => {
+    expect(request.url).toEqual(
+      "https://api.github.com/repos/octocat/hello-world",
+    );
+
+    const headersObject = mock.callHistory.calls()[0].options.headers!;
+    expect(headersObject).toStrictEqual(expectedRequestHeaders);
+
     return true;
   };
+
+  const mock = fetchMock.createInstance();
+
+  mock.getOnce(matchGetUser, {
+    status: 200,
+    body: {
+      id: 123,
+    },
+  });
 
   const requestMock = request.defaults({
     headers: {
       "user-agent": "test",
     },
     request: {
-      fetch: fetchMock.sandbox().getOnce(matchGetUser, { id: 123 }),
+      fetch: mock.fetchHandler,
     },
   });
 
@@ -63,29 +77,38 @@ test('auth.hook(request, "GET /repos/octocat/hello-world") returns 404', async (
     "user-agent": "test",
   };
 
-  const matchGetUser: fetchMock.MockMatcherFunction = (url, { headers }) => {
-    expect(url).toEqual("https://api.github.com/repos/octocat/hello-world");
-    expect(headers).toStrictEqual(expectedRequestHeaders);
+  const matchGetUser: fetchMock.MockMatcherFunction = (request) => {
+    expect(request.url).toEqual(
+      "https://api.github.com/repos/octocat/hello-world",
+    );
+
+    const headersObject = mock.callHistory.calls()[0].options.headers!;
+    expect(headersObject).toStrictEqual(expectedRequestHeaders);
+
     return true;
   };
+
+  const mock = fetchMock.createInstance();
+  mock.getOnce(matchGetUser, {
+    status: 404,
+    body: {
+      message: "Not Found",
+    },
+  });
 
   const requestMock = request.defaults({
     headers: {
       "user-agent": "test",
     },
     request: {
-      fetch: fetchMock.sandbox().getOnce(matchGetUser, {
-        status: 404,
-        body: {
-          message: "Not Found",
-        },
-      }),
+      fetch: mock.fetchHandler,
     },
   });
 
   const { hook } = createUnauthenticatedAuth({ reason: "test" });
 
   try {
+    // Call the hook with the requestMock
     await hook(requestMock, "GET /repos/octocat/hello-world");
     throw new Error("should not resolve");
   } catch (error: any) {
@@ -101,27 +124,34 @@ test('auth.hook(request, "GET /repos/octocat/hello-world") returns rate limit re
     "user-agent": "test",
   };
 
-  const matchGetUser: fetchMock.MockMatcherFunction = (url, { headers }) => {
-    expect(url).toEqual("https://api.github.com/repos/octocat/hello-world");
-    expect(headers).toStrictEqual(expectedRequestHeaders);
+  const matchGetUser: fetchMock.MockMatcherFunction = (request) => {
+    expect(request.url).toEqual(
+      "https://api.github.com/repos/octocat/hello-world",
+    );
+
+    const headersObject = mock.callHistory.calls()[0].options.headers!;
+    expect(headersObject).toStrictEqual(expectedRequestHeaders);
+
     return true;
   };
+
+  const mock = fetchMock.createInstance().getOnce(matchGetUser, {
+    status: 403,
+    headers: {
+      "x-ratelimit-remaining": 0,
+    },
+    body: {
+      message:
+        "API rate limit exceeded for xxx.xxx.xxx.xxx. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)",
+    },
+  });
 
   const requestMock = request.defaults({
     headers: {
       "user-agent": "test",
     },
     request: {
-      fetch: fetchMock.sandbox().getOnce(matchGetUser, {
-        status: 403,
-        headers: {
-          "x-ratelimit-remaining": 0,
-        },
-        body: {
-          message:
-            "API rate limit exceeded for xxx.xxx.xxx.xxx. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)",
-        },
-      }),
+      fetch: mock.fetchHandler,
     },
   });
 
@@ -143,24 +173,31 @@ test('auth.hook(request, "GET /repos/octocat/hello-world") returns rate limit re
     "user-agent": "test",
   };
 
-  const matchGetUser: fetchMock.MockMatcherFunction = (url, { headers }) => {
-    expect(url).toEqual("https://api.github.com/repos/octocat/hello-world");
-    expect(headers).toStrictEqual(expectedRequestHeaders);
+  const matchGetUser: fetchMock.MockMatcherFunction = (request) => {
+    expect(request.url).toEqual(
+      "https://api.github.com/repos/octocat/hello-world",
+    );
+
+    const headersObject = mock.callHistory.calls()[0].options.headers!;
+    expect(headersObject).toStrictEqual(expectedRequestHeaders);
+
     return true;
   };
+
+  const mock = fetchMock.createInstance().getOnce(matchGetUser, {
+    status: 403,
+    body: {
+      message:
+        "You have triggered an abuse detection mechanism and have been temporarily blocked from content creation. Please retry your request again later.",
+    },
+  });
 
   const requestMock = request.defaults({
     headers: {
       "user-agent": "test",
     },
     request: {
-      fetch: fetchMock.sandbox().getOnce(matchGetUser, {
-        status: 403,
-        body: {
-          message:
-            "You have triggered an abuse detection mechanism and have been temporarily blocked from content creation. Please retry your request again later.",
-        },
-      }),
+      fetch: mock.fetchHandler,
     },
   });
 
@@ -177,14 +214,15 @@ test('auth.hook(request, "GET /repos/octocat/hello-world") returns rate limit re
 });
 
 test('auth.hook(request, "PATCH /repos/octocat/hello-world") with 401 response', async () => {
+  const mock = fetchMock
+    .createInstance()
+    .patchOnce("path:/repos/octocat/hello-world", 401);
   const requestMock = request.defaults({
     headers: {
       "user-agent": "test",
     },
     request: {
-      fetch: fetchMock
-        .sandbox()
-        .patchOnce("path:/repos/octocat/hello-world", 401),
+      fetch: mock.fetchHandler,
     },
   });
 
@@ -201,14 +239,21 @@ test('auth.hook(request, "PATCH /repos/octocat/hello-world") with 401 response',
 });
 
 test('auth.hook(request, "GET /repos/octocat/hello-world") does not swallow non-request related errors', async () => {
+  const mock = fetchMock
+    .createInstance()
+    .get("path:/repos/octocat/hello-world", {
+      status: 500,
+      body: {
+        message: "unrelated",
+      },
+    });
+
   const requestMock = request.defaults({
     headers: {
       "user-agent": "test",
     },
     request: {
-      fetch() {
-        throw new Error("unrelated");
-      },
+      fetch: mock.fetchHandler,
     },
   });
 
@@ -223,19 +268,21 @@ test('auth.hook(request, "GET /repos/octocat/hello-world") does not swallow non-
 });
 
 test('auth.hook(request, "POST /repos/octocat/hello-world/issues/123/comments") with 403 response', async () => {
+  const mock = fetchMock
+    .createInstance()
+    .postOnce("path:/repos/octocat/hello-world/issues/123/comments", {
+      status: 403,
+      body: {
+        message: "You cannot comment on locked issues",
+      },
+    });
+
   const requestMock = request.defaults({
     headers: {
       "user-agent": "test",
     },
     request: {
-      fetch: fetchMock
-        .sandbox()
-        .postOnce("path:/repos/octocat/hello-world/issues/123/comments", {
-          status: 403,
-          body: {
-            message: "You cannot comment on locked issues",
-          },
-        }),
+      fetch: mock.fetchHandler,
     },
   });
 
@@ -256,12 +303,14 @@ test('auth.hook(request, "POST /repos/octocat/hello-world/issues/123/comments") 
 });
 
 test("500 response", async () => {
+  const mock = fetchMock.createInstance().getOnce("path:/", 500);
+
   const requestMock = request.defaults({
     headers: {
       "user-agent": "test",
     },
     request: {
-      fetch: fetchMock.sandbox().getOnce("path:/", 500),
+      fetch: mock.fetchHandler,
     },
   });
 
