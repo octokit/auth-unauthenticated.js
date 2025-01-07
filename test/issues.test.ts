@@ -5,17 +5,19 @@ import fetchMock from "fetch-mock";
 import { createUnauthenticatedAuth } from "../src/index.ts";
 
 test("https://github.com/octokit/auth-unauthenticated.js/issues/29", async () => {
+  const mock = fetchMock
+    .createInstance()
+    .postOnce("path:/app-manifests/123/conversions", {
+      status: 201,
+      body: { id: 1 },
+    });
+
   const requestMock = request.defaults({
     headers: {
       "user-agent": "test",
     },
     request: {
-      fetch: fetchMock
-        .sandbox()
-        .postOnce("path:/app-manifests/123/conversions", {
-          status: 201,
-          body: { id: 1 },
-        }),
+      fetch: mock.fetchHandler,
     },
   });
 
