@@ -1,4 +1,4 @@
-import { RequestError } from "@octokit/request-error";
+import type { RequestError } from "@octokit/request-error";
 
 const REGEX_ABUSE_LIMIT_MESSAGE = /\babuse\b/i;
 
