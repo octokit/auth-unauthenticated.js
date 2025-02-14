@@ -1,4 +1,4 @@
-import { RequestError } from "@octokit/request-error";
+import type { RequestError } from "@octokit/request-error";
 
 export function isRateLimitError(error: RequestError) {
   if (error.status !== 403) {
