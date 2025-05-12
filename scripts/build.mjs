@@ -46,7 +46,7 @@ async function main() {
       outdir: "pkg/dist-node",
       bundle: true,
       platform: "node",
-      target: "node18",
+      target: "node20",
       ...sharedOptions,
     }),
     // Build an ESM browser bundle
@@ -95,8 +95,8 @@ async function main() {
         sideEffects: false,
       },
       null,
-      2
-    )
+      2,
+    ),
   );
 }
 main();
