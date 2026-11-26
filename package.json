@@ -31,7 +31,7 @@
     "@octokit/core": "^7.0.8",
     "@octokit/request": "^10.0.16",
     "@octokit/tsconfig": "^4.0.0",
-    "@types/node": "^24.0.0",
+    "@types/node": "^26.0.0",
     "@vitest/coverage-v8": "^4.1.11",
     "esbuild": "^0.28.0",
     "fetch-mock": "^12.0.0",
